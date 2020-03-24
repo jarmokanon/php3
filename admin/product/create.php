@@ -1,7 +1,7 @@
 <?php
 
-require("../dashboard/navbar.php");
-require_once "../config/config.php";
+require("../../dashboard/navbar.php");
+require_once "../../config/config.php";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['name']) && isset($_POST['description']) && isset($_POST['category_id'])) {
         $sql = "INSERT INTO product (name, description, category_id, price, color, weight, active) VALUES (?,?,?,?,?,?,?)";

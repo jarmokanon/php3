@@ -1,5 +1,5 @@
 <?php
-include("../dashboard/navbar.php")
+include("../../dashboard/navbar.php")
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,29 +33,25 @@ include("../dashboard/navbar.php")
             <div class="row">
                 <div class="col-md-12">
                     <div class="page-header clearfix">
-                        <h2 class="pull-left">Producten overzicht</h2><br><br><br>
-                        <p class="pull-left">hier zie je de producten tabel, bij image crud zie je de image tabel en op het dashboard zie je de twee tablellen samen,<br> dus daar zie je welke images bij welk product zijn gezet.</p>
+                        <h2 class="pull-left">Product_image overzicht</h2><br><br><br>
+                        <p class="pull-left">LET OP! vul het goede product_id in.</p>
                         <a href="create.php" class="btn btn-success pull-right">Nieuw product toevoegen</a><br><br>
                         <a href="create2.php" class="btn btn-success pull-right">image aan product toevoegen</a>
                     </div>
                     <?php
                     // Include config file
-                    require_once "../config/config.php";
+                    require_once "../../config/config.php";
                     
                     // Attempt select query execution
-                    $sql = "SELECT * FROM `product`";
+                    $sql = "SELECT * FROM `product_image`";
                     if($result = mysqli_query($link, $sql)){
                         if(mysqli_num_rows($result) > 0){
                             echo "<table class='table table-bordered table-striped'>";
                                 echo "<thead>";
                                     echo "<tr>";
                                         echo "<th>id</th>";
-                                        echo "<th>Name</th>";
-                                        echo "<th>description</th>";
-                                        echo "<th>price</th>";
-                                        echo "<th>color</th>";
-                                        echo "<th>weight</th>";
-                                        echo "<th>category_id</th>";
+                                        echo "<th>product_id</th>";
+                                        echo "<th>image</th>";
                                         echo "<th>active</th>";
                                     echo "</tr>";
                                 echo "</thead>";
@@ -63,15 +59,11 @@ include("../dashboard/navbar.php")
                                 while($row = mysqli_fetch_array($result)){
                                     echo "<tr>";
                                         echo "<td>" . $row['id'] . "</td>";
-                                        echo "<td>" . $row['name'] . "</td>";
-                                        echo "<td>" . $row['description'] . "</td>";
-                                        echo "<td>" . $row['price'] . "</td>";
-                                        echo "<td>" . $row['color'] . "</td>";
-                                        echo "<td>" . $row['weight'] . "</td>";
-                                        echo "<td>" . $row['category_id'] . "</td>";
+                                        echo "<td>" . $row['product_id'] . "</td>";
+                                        echo "<td>" . $row['image'] . "</td>";
                                         echo "<td>" . $row['active'] . "</td>";
                                         echo "<td>";
-                                            echo "<a href='read.php?id=". $row['id'] ."' title='Bekijk het product. Hier kan je het product ook verwijderen' data-toggle='tooltip'><span class='glyphicon glyphicon-eye-open'></span></a>";
+                                            echo "<a href='read_image.php?id=". $row['id'] ."' title='Bekijk het product. Hier kan je het product ook verwijderen' data-toggle='tooltip'><span class='glyphicon glyphicon-eye-open'></span></a>";
                                             echo "<a href='update.php?id=". $row['id'] ."' title='Update Record' data-toggle='tooltip'><span class='glyphicon glyphicon-pencil'></span></a>";
                                             // echo "<a href='config/actions.php?del='.$user['id'].'title='Delete Record' data-toggle='tooltip'><span class='glyphicon glyphicon-trash'></span></a>";
                                         echo "</td>";

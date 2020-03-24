@@ -14,10 +14,10 @@
 
 <div class="topnav" id="myTopnav">
   <a href="../index.php" class="active">dashboard</a>
-  <a href="products.php">product CRUD</a>
-  <a href="product_image.php">product_image CRUD</a>
+  <a href="../product/products.php">product CRUD</a>
+  <a href="../product/product_image.php">product_image CRUD</a>
   <a href="../customer/customer_overview.php">customer CRUD</a>
-  <a href="../admin/admin_overview.php">admin CRUD</a>
+  <a href="admin_overview.php">admin CRUD</a>
   <div id="right"><a href="#about">Welcome <?php echo $_SESSION['username']; ?>!</a></div>
   <a href="javascript:void(0);" class="icon" onclick="myFunction()">
     <i class="fa fa-bars"></i>

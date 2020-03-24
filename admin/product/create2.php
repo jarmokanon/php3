@@ -1,9 +1,12 @@
 <?php
 
-require("../dashboard/navbar.php");
-require_once "../config/config.php";
+require("../../dashboard/navbar.php");
+require_once "../../config/config.php";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['product_id']) && isset($_POST['image']) && isset($_POST['active'])) {
+        if (isset($_POST['upload'])) {
+            $image = $_FILES['image']['name'];
+            $target = "../assets/img/".basename($image);
         $sql = "INSERT INTO product_image (product_id, image, active) VALUES (?,?,?)";
         if ($stmt = $link->prepare($sql)) {
             $stmt->bind_param("isi", $_POST['product_id'], $_POST['image'], $_POST['active']);
@@ -16,6 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->close();
         }
     }
+}
     $link->close();
 }
 ?>
@@ -36,19 +40,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <h2>Create Users</h2>
                 </div>
                 <p>Fill this form to add users to the database.</p>
-                <form action="<?php echo $_SERVER["PHP_SELF"] ?>" method="post">
+                <form action="<?php echo $_SERVER["PHP_SELF"] ?>" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <label>product id</label>
                         <input type="number" name="product_id" class="form-control" required>
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label>image</label>
                         <input type="text" name="image" class="form-control" required>
-                    </div>
+                    </div> -->
                     <div class="form-group">
                         <label>active</label>
                         <input type="number" name="active" class="form-control" required>
                     </div>
+                    <div class="form-group">
+  	                    <input type="file" name="image">
+  	                </div>
                     <input type="submit" class="btn btn-primary" value="Submit">
                     <a href="products.php" class="btn btn-default">Cancel</a>
                 </form>
