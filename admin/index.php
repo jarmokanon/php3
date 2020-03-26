@@ -4,6 +4,7 @@ require("../dashboard/navbar2.php");
 ?>
     <?php
         include("product/product_overzicht.php");
+        include("category_overview.php");
         include("user_overzicht.php");
         include("admin_overzicht.php");
         include("customer_overview.php")

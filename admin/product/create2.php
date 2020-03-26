@@ -1,26 +1,28 @@
 <?php
-
+require_once '../../config/connect.php';
 require("../../dashboard/navbar.php");
-require_once "../../config/config.php";
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['product_id']) && isset($_POST['image']) && isset($_POST['active'])) {
-        if (isset($_POST['upload'])) {
-            $image = $_FILES['image']['name'];
-            $target = "../assets/img/".basename($image);
-        $sql = "INSERT INTO product_image (product_id, image, active) VALUES (?,?,?)";
-        if ($stmt = $link->prepare($sql)) {
-            $stmt->bind_param("isi", $_POST['product_id'], $_POST['image'], $_POST['active']);
-            if ($stmt->execute()) {
-                header("location: product_image.php");
-                exit();
-            } else {
-                echo "Error! Please try again later.";
-            }
-            $stmt->close();
+?>
+<div class="container">
+<?php
+if(isset($_POST['addnew'])){
+    if( empty($_POST['product_id']))
+    {
+        echo "Please fillout all required fields";
+    }else{
+        $product_id = $_POST['product_id'];
+        $target_dir = "uploads/";  
+        $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]); 
+        move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
+        $active = $_POST['active'];
+        $sql = "INSERT INTO product_image(product_id,image,active)
+        VALUES('$product_id','$target_file','$active')";
+
+        if( $con->query($sql) === TRUE){
+            echo "<div class='alert alert-success'>Successfully added new user</div>";
+        }else{
+            echo "<div class='alert alert-danger'>Error: There was an error while adding new user</div>";
         }
     }
-}
-    $link->close();
 }
 ?>
 <!DOCTYPE html>
@@ -32,34 +34,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
-<div class="wrapper">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="page-header">
-                    <h2>Create Users</h2>
-                </div>
-                <p>Fill this form to add users to the database.</p>
-                <form action="<?php echo $_SERVER["PHP_SELF"] ?>" method="post" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label>product id</label>
-                        <input type="number" name="product_id" class="form-control" required>
-                    </div>
-                    <!-- <div class="form-group">
-                        <label>image</label>
-                        <input type="text" name="image" class="form-control" required>
-                    </div> -->
-                    <div class="form-group">
-                        <label>active</label>
-                        <input type="number" name="active" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-  	                    <input type="file" name="image">
-  	                </div>
-                    <input type="submit" class="btn btn-primary" value="Submit">
-                    <a href="products.php" class="btn btn-default">Cancel</a>
-                </form>
-            </div>
-        </div>
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="box">
+        <h3><i class="glyphicon glyphicon-plus"></i>&nbsp;Add Image</h3>
+        <form method="post" enctype="multipart/form-data">
+        <label for="product_id">product_id:</label>
+        <input type="text" id="product_id" name="product_id" class="form-control"><br>
+        <br>
+        <label for="image">image:</label>
+        <input type="file" name="fileToUpload" id="fileToUpload">
+        <br>
+        <br>
+        <label for="active">active:</label>
+        <input type="text" name="active" id="active" class="form-control"><br>
+        <br>
+        <input type="submit" name="addnew" class="btn btn-success" value="Add New">
+        </form>
+    </div>
+    </div>
     </div>
 </div>
+</body>
+</html>
