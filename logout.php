@@ -4,6 +4,6 @@ session_start();
 if(session_destroy())
 {
 // terug naar de startpagina
-header("Location: login.php");
+header("Location: index.php");
 }
 ?>

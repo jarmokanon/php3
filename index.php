@@ -1,3 +1,6 @@
+<?php
+    include("shop/nav.php")
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,39 +13,7 @@
 </head>
 
 <body>
-<ul>
-  <li><a class="left" href="homepage.php">Home</a></li>
-  <li><a class="left" href="tickets.php">tickets</a></li>
-  <li><a class="right" href="login.php">Hey, <?php echo $_SESSION['username']; ?> hier kun je uitloggen.</a></li>
-</ul>
 <header>
 </header>
-<div class="bar">
-    <h1 class="bartxt">Eerstvolgende events:</h1>
-</div>
-<div id="container">
-    <div class="container">
-            <div class="row">
-
-                  <?php
-                   include 'database.php';
-                   $pdo = Database::connect();
-                   $sql = 'SELECT * FROM `customers` ORDER BY `customers`.`date` ASC';
-                   foreach ($pdo->query($sql) as $data){?>
-                    <div class="card">
-                    <!-- <img src="" alt="" style="width:100%"> -->
-                    <?php echo "<img src='assets/img/".$data['image']."' >";?>
-                    <h1><?php echo $data['name'] ?></h1>
-                    <p class="price"><?php echo $data['title'] ?></p>
-                    <p><?php echo $data['date']; ?></p>
-                    <p>beschikbare tickets: <?php echo $data['ticket']; ?></p>
-                    <!-- <button><a class="btn" href="read.php?id='.$data['id'].'">bestellen</a></button> -->
-                    <?php echo '<button><a class="btn" href="read.php?id='.$data['id'].'">Bestellen</a></button>'; ?>
-                    <!-- <p><button>kaarten kopen</button></p> -->
-                    </div>
-                   <?php
-                   };
-                   Database::disconnect();
-                  ?>
         </div>
     </div>
