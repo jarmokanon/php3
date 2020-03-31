@@ -1,27 +1,54 @@
 <?php
-    include("shop/nav.php")
+    include("shop/nav.php");
+    require 'config/database.php';
+    $id = null;
+    if ( !empty($_GET['id'])) {
+        $id = $_REQUEST['id'];
+    }
+     
+    if ( null==$id ) {
+        header("Location: index.php");
+    } else {
+        $pdo = Database::connect();
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "SELECT product.id, product.name, product.description, product.price, product.color, product.weight, category.name AS category, product_image.image FROM `product` INNER JOIN product_image ON product.id = product_image.product_id INNER JOIN category ON product.category_id = category.id WHERE category.id = $id GROUP BY product.id";
+        $q = $pdo->prepare($sql);
+        $q->execute(array($id));
+        $data = $q->fetch(PDO::FETCH_ASSOC);
+        Database::disconnect();
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <link   href="assets/css/home.css" rel="stylesheet">
+    <link   href="assets/css/read.css" rel="stylesheet">
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> -->
 </head>
 <header class="header"></header>
+
 <body>
+
 <div id="container">
     <div class="container">
             <div class="row">
 
                   <?php
-                   include 'config/database.php';
-                   $pdo = Database::connect();
-                   $sql = 'SELECT * FROM `category`';
                    foreach ($pdo->query($sql) as $data){?>
                     <div class="card">
+                    <!-- <img src="" alt="" style="width:100%"> -->
+                    <?php echo "<img src='admin/product/".$data['image']."' >";?>
                     <h1><?php echo $data['name'] ?></h1>
-                    <p class="price"><?php echo $data['description'] ?></p>
-                    <?php echo '<button><a class="btn" href="read.php?id='.$data['id'].'">Naar product-overzicht</a></button>'; ?>
+                    <hr>
+                    <p><?php echo $data['color']; ?></p>
+                    <hr>
+                    <p><?php echo $data['category']; ?></p>
+                    <hr>
+                    <p class="price">$<?php echo $data['price'] ?></p>
+                    <!-- <button><a class="btn" href="read.php?id='.$data['id'].'">bestellen</a></button> -->
+                    <?php echo '<button><a class="btn" href="productpage.php?id='.$data['id'].'">Bestellen</a></button>'; ?>
+                    <!-- <p><button>kaarten kopen</button></p> -->
                     </div>
                    <?php
                    };
@@ -29,8 +56,8 @@
                   ?>
         </div>
     </div>
-</body>
-<footer>
+  </body>
+  <footer>
   <svg viewBox="0 0 120 28">
    <defs> 
       <filter id="goo">
@@ -72,6 +99,4 @@
     <use id="wave1" class="wave" xlink:href="#wave" x="0" y="1" />
    </g>   
   </svg>
-  
-    <div>Medijarmarkt</div>
-  </footer>
+</html>

@@ -4,14 +4,14 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="assets/css/nav.css">
+<link rel="stylesheet" href="assets/css/nav2.css">
 </head>
 <body>
 
 <div class="topnav" id="myTopnav">
-  <a href="../index.php" class="active">dashboard</a>
+  <a href="index.php" class="active">Home</a>
   <a href="products.php">product CRUD</a>
-  <div id="right"><a href="#about">
+  <div id="right"><a href="#">
   <?php 
   session_start(); // nodig om sessie te bewaren
   if (isset($_SESSION['firstname'])) { // kijkt of sessie bestaat

@@ -10,7 +10,7 @@ if(isset($_POST['addnew'])){
         echo "Please fillout all required fields";
     }else{
         $product_id = $_POST['product_id'];
-        $target_dir = "uploads/";  
+        $target_dir = "img/";  
         $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]); 
         move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
         $active = $_POST['active'];

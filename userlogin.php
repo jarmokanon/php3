@@ -1,14 +1,17 @@
+<?php
+    include("shop/nav.php")
+?>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
 <title>Login</title>
-<link rel="stylesheet" href="assets/css/style2.css" />
+<link rel="stylesheet" href="assets/css/style3.css" />
 </head>
 <body>
 <?php
 require('config/db.php');
-session_start();
+// session_start();
 // If form submitted, insert values into the database.
 if (isset($_POST['firstname'])){
         // removes backslashes
@@ -34,7 +37,6 @@ and password='".md5($password)."'";
     }else{
 ?>
 <div class="form">
-<h1>Log In</h1>
 <form action="" method="post" name="login">
 <input type="text" name="firstname" placeholder="firstname" required />
 <input type="password" name="password" placeholder="Password" required />

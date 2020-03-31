@@ -1,5 +1,5 @@
 <?php 
-include("../dashboard/navbar.php");
+include("../../dashboard/navbar.php");
 
 
 // include("../config/config.php")
@@ -7,7 +7,7 @@ include("../dashboard/navbar.php");
 
 ?>
 <?php
-    require '../config/database.php';
+    require '../../config/database.php';
     $id = null;
     if ( !empty($_GET['id'])) {
         $id = $_REQUEST['id'];

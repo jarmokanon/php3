@@ -19,7 +19,7 @@
   <a href="../customer/customer_overview.php">customer CRUD</a>
   <a href="admin_overview.php">admin CRUD</a>
   <a href="../category/category_overview.php">category CRUD</a>  
-  <div id="right"><a href="#about">Welcome <?php echo $_SESSION['username']; ?>!</a></div>
+  <div id="right"><a href="logout.php">Welcome <?php echo $_SESSION['username']; ?>!</a></div>
   <a href="javascript:void(0);" class="icon" onclick="myFunction()">
     <i class="fa fa-bars"></i>
   </a>
