@@ -1,0 +1,155 @@
+.header {
+    background: linear-gradient(rgba(255, 255, 255, 0),rgba(255, 255, 255, 0.986)), url(../img/banner3.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 300px;
+    width: 100%;
+}
+@import url("https://fonts.googleapis.com/css?family=Lato:400,400i,700");
+
+body {
+  font-family: Lato, sans-serif;
+  --col-deepblue: #3cebc4;
+}
+a {
+  color:#fff;
+  text-decoration:none;
+}
+footer {
+  width:100%;
+  position:bottom;
+  margin-top: 130px;
+  bottom:0px;
+  height: 10px;
+}
+footer div {
+  background-color: var(--col-deepblue);
+  margin: -5px 0px 0px 0px;
+  padding:0px;
+  color: #fff;
+  text-align:center;
+}
+svg {
+  width:100%;
+  overflow:visible;
+}
+
+.wave {
+  animation: wave 3s linear;
+  animation-iteration-count:infinite;
+  fill: #3cebc4;
+}
+.drop {
+  fill: var(--col-deepblue);
+  xfill: #99000055;
+  animation: drop 3.2s linear infinite normal;
+  stroke: var(--col-deepblue);
+  stroke-width:0.5;
+  transform: translateY(25px) ;
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+}
+.drop1 {
+  
+}
+.drop2 {
+  animation-delay: 3s;
+  animation-duration:3s;
+}
+.drop3 {
+  animation-delay: -2s;
+  animation-duration:3.4s;
+}
+.drop4 {
+  animation-delay: 1.7s;
+}
+.drop5 {
+  animation-delay: 2.7s;
+  animation-duration:3.1s;
+}
+.drop6 {
+  animation-delay: -2.1s;
+  animation-duration:3.2s;
+}
+.gooeff {
+    filter: url(#goo);
+}
+#wave2 {
+  animation-duration:5s;
+  animation-direction: reverse;
+  opacity: .6
+}
+#wave3 {
+  animation-duration: 7s;
+  opacity:.3;
+}
+@keyframes drop {
+  0% {
+    transform: translateY(25px); 
+  }
+  30% {
+    transform: translateY(-10px) scale(.1);
+  }
+  30.001% {
+    transform: translateY(25px) scale(1); 
+  }
+  70% {
+    transform: translateY(25px); 
+  }
+  100% { 
+    transform: translateY(-10px) scale(.1);  
+  }
+}
+@keyframes wave {
+  to {transform: translateX(-100%);}
+}
+.card {
+    box-shadow: 0 4px 8px 0 #38ebc4;
+    /* max-width: 300px; */
+    float: left;
+    margin-left: 3%;
+    width: 300px;
+    display: block;
+    height: auto;
+    /* margin: auto; */
+    text-align: center;
+    font-family: arial;
+    margin-top: 20px;
+  }
+  
+  .price {
+    color: #444444;
+    font-size: 22px;
+  }
+  
+  .card button {
+    border: none;
+    position: sticky;
+    outline: 0;
+    padding: 12px;
+    color: rgb(0, 0, 0);
+    background-color: #38ebc4;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+  }
+  
+  .card button:hover {
+    opacity: 0.7;
+  }
+  #container {
+    width: 95%;
+    margin: auto;
+    display: block;
+  }
+  .card img{
+      width: 100%;
+      margin-top: 10px;
+  }
+hr {
+  width: 80%;
+  margin: 0 auto;
+  display: block;
+  background-color: rgb(221, 218, 218);
+}

@@ -1,24 +1,5 @@
 <?php
     include("shop/nav.php");
-    require 'config/database.php';
-    $id = null;
-    if ( !empty($_GET['id'])) {
-        $id = $_REQUEST['id'];
-    }
-     
-    if ( null==$id ) {
-        header("Location: index.php");
-    } else {
-        $pdo = Database::connect();
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "SELECT product.id, product.name, product.description, product.price, product.color, product.weight, category.name AS category, product_image.image FROM `product` INNER JOIN product_image ON product.id = product_image.product_id INNER JOIN category ON product.category_id = category.id WHERE category.id = $id GROUP BY product.id";
-        $q = $pdo->prepare($sql);
-        $q->execute(array($id));
-        $data = $q->fetch(PDO::FETCH_ASSOC);
-        Database::disconnect();
-    }
-?>
-<?php
     $database_name = "webshop";
     $con = mysqli_connect("localhost","root","",$database_name);
  
@@ -63,57 +44,99 @@
     }
 ?>
  
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 <head>
-    <meta charset="utf-8">
-    <link   href="assets/css/read.css" rel="stylesheet">
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
-    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> -->
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Shopping Cart</title>
+ 
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link   href="assets/css/cart.css" rel="stylesheet">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+ 
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Titillium+Web');
+ 
+        *{
+            font-family: 'Titillium Web', sans-serif;
+        }
+        .product{
+            border: 1px solid #eaeaec;
+            margin: -1px 19px 3px -1px;
+            padding: 10px;
+            text-align: center;
+            background-color: #38ebc4;
+        }
+        table, th, tr{
+            text-align: center;
+        }
+        .title2{
+            text-align: center;
+            color: #66afe9;
+            background-color: #38ebc4;
+            padding: 2%;
+        }
+        h2{
+            text-align: center;
+            color: #grey;
+            background-color: #38ebc4;
+            padding: 2%;
+        }
+        table th{
+            background-color: #grey;
+        }
+    </style>
 </head>
-<header class="header"></header>
-
 <body>
-<div id="container">
-    <div class="container">
-            <div class="row">
-
-        <?php
-            $query = "SELECT product.id, product.name, product.description, product.price, product.color, product.weight, category.name AS category, product_image.image FROM `product` INNER JOIN product_image ON product.id = product_image.product_id INNER JOIN category ON product.category_id = category.id WHERE category.id = $id GROUP BY product.id ";
-            $result = mysqli_query($con,$query);
-            if(mysqli_num_rows($result) > 0) {
  
-                while ($data = mysqli_fetch_array($result)) {
+    <div class="container" style="width: 65%">
+        <h2>Shopping Cart</h2>
+        <div style="clear: both"></div>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+            <tr>
+                <th width="30%">Product Name</th>
+                <th width="10%">Quantity</th>
+                <th width="13%">Price Details</th>
+                <th width="10%">Total Price</th>
+                <th width="17%">Remove Item</th>
+            </tr>
  
-                    ?>
-                    <div class="col-md-3">
+            <?php
+                if(!empty($_SESSION["cart"])){
+                    $total = 0;
+                    foreach ($_SESSION["cart"] as $key => $value) {
+                        ?>
+                        <tr>
+                            <td><?php echo $value["item_name"]; ?></td>
+                            <td><?php echo $value["item_quantity"]; ?></td>
+                            <td>$ <?php echo $value["product_price"]; ?></td>
+                            <td>
+                                $ <?php echo number_format($value["item_quantity"] * $value["product_price"], 2); ?></td>
+                            <td><a href="shopping.php?action=delete&id=<?php echo $value["product_id"]; ?>"><span
+                                        class="text-danger">Remove Item</span></a></td>
  
-                        <form method="post" action="shopping.php?action=add&id=<?php echo $data["id"]; ?>">
- 
-                            <div class="card">
-                                <?php echo "<img class='img-responsive' src='admin/product/".$data['image']."' >";?>
-                                <h5 class="text-info"><?php echo $data["name"]; ?></h5>
-                                <h5 class="price" class="text-danger"><?php echo $data["price"]; ?></h5>
-                                <input type="text" name="quantity" class="form-control" value="1">
-                                <input type="hidden" name="name" value="<?php echo $data["name"]; ?>">
-                                <input type="hidden" name="price" value="<?php echo $data["price"]; ?>">
-                                <button><input type="submit" name="add" style="margin-top: 5px;" class="btn btn-success"
-                                       value="Add to Cart"></button>
-                                <?php echo '<button><a class="btn" href="productpage.php?id='.$data['id'].'">Bestellen</a></button>'; ?>
-                            </div>
-                        </form>
-                    </div>
-                    <?php
-                }
-            }
-        ?>
-                   <?php
-                   Database::disconnect();
-                  ?>
+                        </tr>
+                        <?php
+                        $total = $total + ($value["item_quantity"] * $value["product_price"]);
+                    }
+                        ?>
+                        <tr>
+                            <td colspan="3" align="right">Total</td>
+                            <th align="right">$ <?php echo number_format($total, 2); ?></th>
+                            <td></td>
+                        </tr>
+                        <?php
+                    }
+                ?>
+            </table>
         </div>
     </div>
-  </body>
-  <footer>
+</body>
+<footer>
   <svg viewBox="0 0 120 28">
    <defs> 
       <filter id="goo">
