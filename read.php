@@ -97,9 +97,10 @@
                                 <input type="text" name="quantity" class="form-control" value="1">
                                 <input type="hidden" name="name" value="<?php echo $data["name"]; ?>">
                                 <input type="hidden" name="price" value="<?php echo $data["price"]; ?>">
-                                <button><input type="submit" name="add" style="margin-top: 5px;" class="btn btn-success"
-                                       value="Add to Cart"></button>
-                                <?php echo '<button><a class="btn" href="productpage.php?id='.$data['id'].'">Bestellen</a></button>'; ?>
+                                <input type="submit" name="add" style="margin-top: 5px;" class="btn btn-success"
+                                       value="Add to Cart">
+                                <hr>
+                                <?php echo '<a class="btn" href="productpage.php?id='.$data['id'].'">Bekijk</a>'; ?>
                             </div>
                         </form>
                     </div>

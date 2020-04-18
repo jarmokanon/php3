@@ -18,12 +18,57 @@
         Database::disconnect();
     }
 ?>
+<?php
+    $database_name = "webshop";
+    $con = mysqli_connect("localhost","root","",$database_name);
+ 
+    if (isset($_POST["add"])){
+        if (isset($_SESSION["cart"])){
+            $item_array_id = array_column($_SESSION["cart"],"product_id");
+            if (!in_array($_GET["id"],$item_array_id)){
+                $count = count($_SESSION["cart"]);
+                $item_array = array(
+                    'product_id' => $_GET["product.id"],
+                    'item_name' => $_POST["name"],
+                    'product_price' => $_POST["price"],
+                    'item_quantity' => $_POST["quantity"],
+                );
+                $_SESSION["cart"][$count] = $item_array;
+                echo '<script>window.location="shopping.php"</script>';
+            }else{
+                echo '<script>alert("Product is already Added to Cart")</script>';
+                echo '<script>window.location="shopping.php"</script>';
+            }
+        }else{
+            $item_array = array(
+                'product_id' => $_GET["product.id"],
+                'item_name' => $_POST["name"],
+                'product_price' => $_POST["price"],
+                'item_quantity' => $_POST["quantity"],
+            );
+            $_SESSION["cart"][0] = $item_array;
+        }
+    }
+ 
+    if (isset($_GET["action"])){
+        if ($_GET["action"] == "delete"){
+            foreach ($_SESSION["cart"] as $keys => $value){
+                if ($value["product_id"] == $_GET["id"]){
+                    unset($_SESSION["cart"][$keys]);
+                    echo '<script>alert("Product has been Removed...!")</script>';
+                    echo '<script>window.location="shopping.php"</script>';
+                }
+            }
+        }
+    }
+?>
+ 
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
-    <title>Iphone 8</title>
+    <title><?php echo $data['name'] ?></title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
     <link href="assets/css/style4.css" rel="stylesheet">
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
@@ -35,40 +80,48 @@
   <header class="header"></header>   
 
   <body>
+  <div id="container">
     <main class="container">
+    <?php
+            $query = "SELECT product.id, product.name, product.description, product.price, product.color, product.weight, category.name AS category, product_image.image FROM `product` INNER JOIN product_image ON product.id = product_image.product_id INNER JOIN category ON product.category_id = category.id WHERE category.id = $id GROUP BY product.id ";
+            $result = mysqli_query($con,$query); {
+ 
+                    ?>
+                    <div class="col-md-3">
+ 
+                        <form method="post" action="shopping.php?action=add&id=<?php echo $data["id"]; ?>">
 
-      <div class="left-column">
-        <!-- <img data-image="black" class="active" src="8black.png" alt=""> -->
-        <?php echo "<img data-image='black' class='active' src='admin/product/".$data['image']."' >";?>
-      </div>
 
-      <!-- Right Column -->
-      <div class="right-column">
+<?php echo "<img class='img-responsive' class='active' src='admin/product/".$data['image']."' >";?>
 
-        <!-- Product Description -->
-        <div class="product-description">
-          <span><?php echo $data['category']; ?></span>
-          <h1><?php echo $data['name'] ?></h1>
-          <br>
-          <textarea rows="10" cols="50" readonly><?php echo $data['description']; ?></textarea>
-        </div>
 
-        <!-- Product Configuration -->
-        <div class="product-configuration">
+<!-- Right Column -->
+<div class="right-column">
 
-          <!-- Product Color -->
-          <div class="product-color">
-            <span>kleur</span>
-            <p><?php echo $data['color']; ?></p>
-          </div>
-        <!-- Product Pricing -->
-        <div class="product-price">
-          <span>$<?php echo $data['price'] ?></span>
-          <a href="formulier.php" class="cart-btn">Bestellen</a>
-        </div>
-      </div>
-    </main>
-
+  <!-- Product Description -->
+  <div class="product-description">
+    <span>Apple</span>
+    <h5 class="text-info"><?php echo $data["name"]; ?></h5>
+    <p><?php echo $data["description"]; ?></p>
+  </div>
+  <!-- Product Pricing -->
+  <div class="product-price">
+  <h5 class="price" class="text-danger"><?php echo $data["price"]; ?></h5>
+  <input type="text" name="quantity" class="form-control" value="1">
+  <input type="hidden" name="name" value="<?php echo $data["name"]; ?>"><br>
+  <input type="hidden" name="price" value="<?php echo $data["price"]; ?>"><br>
+  <input type="submit" name="add" style="margin-top: 5px;" class="btn btn-success"
+                                       value="Add to Cart">
+  </div>
+  <?php
+                }
+            
+        ?>
+                   <?php
+                   Database::disconnect();
+                  ?>
+</div>
+</main>
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" charset="utf-8"></script>
     <script src="js/scriptpage.js" charset="utf-8"></script>

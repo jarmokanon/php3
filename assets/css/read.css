@@ -152,3 +152,16 @@ hr {
   display: block;
   background-color: rgb(221, 218, 218);
 }
+a {
+  border: none;
+  /* position: sticky; */
+  /* outline: 0; */
+  padding: 2px;
+  color: rgb(0, 0, 0);
+  /* background-color: #38ebc4;'] */
+  text-align: center;
+  cursor: pointer;
+  width: auto;
+  font-size: 18px;
+  height: auto;
+}

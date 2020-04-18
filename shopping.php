@@ -22,7 +22,7 @@
             }
         }else{
             $item_array = array(
-                'product_id' => $_GET["product.id"],
+                'product_id' => $_GET["product_id"],
                 'item_name' => $_POST["name"],
                 'product_price' => $_POST["price"],
                 'item_quantity' => $_POST["quantity"],
@@ -129,6 +129,7 @@
                             <th align="right">$ <?php echo number_format($total, 2); ?></th>
                             <td></td>
                         </tr>
+                        <?php echo '<button><a class="btn" href="order.php?id='.$value['product_id'].'">Bestellen</a></button>'; ?>
                         <?php
                     }
                 ?>

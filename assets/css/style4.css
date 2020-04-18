@@ -293,8 +293,12 @@ html, body {
    .right-column {
      width: 35%;
      margin-top: 80px;
+     float: right;
    }
-   
+   img {
+     max-width: 50%;
+     height: 0px auto;
+   }
    
    /* Left Column */
    .left-column img {
@@ -532,5 +536,12 @@ html, body {
        width: 220px;
        top: -85px;
      }
+     img {
+       max-width: 100%;
+     }
    }
-   
+  
+button {
+  border: none;
+  background-color: white;
+}
