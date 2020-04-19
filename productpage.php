@@ -100,7 +100,6 @@
 
   <!-- Product Description -->
   <div class="product-description">
-    <span>Apple</span>
     <h5 class="text-info"><?php echo $data["name"]; ?></h5>
     <p><?php echo $data["description"]; ?></p>
   </div>

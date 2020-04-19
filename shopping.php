@@ -5,11 +5,11 @@
  
     if (isset($_POST["add"])){
         if (isset($_SESSION["cart"])){
-            $item_array_id = array_column($_SESSION["cart"],"product_id");
+            $item_array_id = array_column($_SESSION["cart"],"product.id");
             if (!in_array($_GET["id"],$item_array_id)){
                 $count = count($_SESSION["cart"]);
                 $item_array = array(
-                    'product_id' => $_GET["product.id"],
+                    'product.id' => $_GET["product.id"],
                     'item_name' => $_POST["name"],
                     'product_price' => $_POST["price"],
                     'item_quantity' => $_POST["quantity"],
@@ -22,7 +22,7 @@
             }
         }else{
             $item_array = array(
-                'product_id' => $_GET["product_id"],
+                'product.id' => $_GET["product.id"],
                 'item_name' => $_POST["name"],
                 'product_price' => $_POST["price"],
                 'item_quantity' => $_POST["quantity"],
@@ -34,7 +34,7 @@
     if (isset($_GET["action"])){
         if ($_GET["action"] == "delete"){
             foreach ($_SESSION["cart"] as $keys => $value){
-                if ($value["product_id"] == $_GET["id"]){
+                if ($value["product.id"] == $_GET["id"]){
                     unset($_SESSION["cart"][$keys]);
                     echo '<script>alert("Product has been Removed...!")</script>';
                     echo '<script>window.location="shopping.php"</script>';
@@ -108,20 +108,20 @@
             <?php
                 if(!empty($_SESSION["cart"])){
                     $total = 0;
-                    foreach ($_SESSION["cart"] as $key => $value) {
+                    foreach ($_SESSION["cart"] as $key => $data) {
                         ?>
                         <tr>
-                            <td><?php echo $value["item_name"]; ?></td>
-                            <td><?php echo $value["item_quantity"]; ?></td>
-                            <td>$ <?php echo $value["product_price"]; ?></td>
+                            <td><?php echo $data["item_name"]; ?></td>
+                            <td><?php echo $data["item_quantity"]; ?></td>
+                            <td>$ <?php echo $data["product_price"]; ?></td>
                             <td>
-                                $ <?php echo number_format($value["item_quantity"] * $value["product_price"], 2); ?></td>
-                            <td><a href="shopping.php?action=delete&id=<?php echo $value["product_id"]; ?>"><span
+                                $ <?php echo number_format($data["item_quantity"] * $data["product_price"], 2); ?></td>
+                            <td><a href="shopping.php?action=delete&id=<?php echo $data["product.id"]; ?>"><span
                                         class="text-danger">Remove Item</span></a></td>
  
                         </tr>
                         <?php
-                        $total = $total + ($value["item_quantity"] * $value["product_price"]);
+                        $total = $total + ($data["item_quantity"] * $data["product_price"]);
                     }
                         ?>
                         <tr>
@@ -129,7 +129,7 @@
                             <th align="right">$ <?php echo number_format($total, 2); ?></th>
                             <td></td>
                         </tr>
-                        <?php echo '<button><a class="btn" href="order.php?id='.$value['product_id'].'">Bestellen</a></button>'; ?>
+                        <?php echo '<button><a class="btn" href="order.php?$id='.$data['product_id'].'">Bekijk</a></button>'; ?>
                         <?php
                     }
                 ?>
