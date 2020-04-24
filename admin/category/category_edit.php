@@ -1,4 +1,7 @@
 <?php
+       session_start();
+?>
+<?php
     include("../../dashboard/navbar5.php");
 	require_once("../../config/db.php");
 	if (isset($_POST['submit'])) {		

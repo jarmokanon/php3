@@ -1,4 +1,7 @@
 <?php
+       session_start();
+?>
+<?php
     include("shop/nav.php");
     require 'config/database.php';
     $id = null;
@@ -11,7 +14,7 @@
     } else {
         $pdo = Database::connect();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "SELECT product.id, product.name, product.description, product.price, product.color, product.weight, category.name AS category, product_image.image FROM `product` INNER JOIN product_image ON product.id = product_image.product_id INNER JOIN category ON product.category_id = category.id WHERE product.id = $id GROUP BY product.id";
+        $sql = "SELECT product.id AS product_id, product.name, product.description, product.price, product.color, product.weight, category.name AS category, product_image.image FROM `product` INNER JOIN product_image ON product.id = product_image.product_id INNER JOIN category ON product.category_id = category.id WHERE product.id = $id GROUP BY product.id";
         $q = $pdo->prepare($sql);
         $q->execute(array($id));
         $data = $q->fetch(PDO::FETCH_ASSOC);
@@ -19,8 +22,8 @@
     }
 ?>
 <?php
-    $database_name = "webshop";
-    $con = mysqli_connect("localhost","root","",$database_name);
+    $database_name = "u532747_webshop";
+    $con = mysqli_connect("localhost","u532747_webshop","Wordpress1",$database_name);
  
     if (isset($_POST["add"])){
         if (isset($_SESSION["cart"])){
@@ -28,7 +31,7 @@
             if (!in_array($_GET["id"],$item_array_id)){
                 $count = count($_SESSION["cart"]);
                 $item_array = array(
-                    'product_id' => $_GET["product.id"],
+                    'product_id' => $_GET["product_id"],
                     'item_name' => $_POST["name"],
                     'product_price' => $_POST["price"],
                     'item_quantity' => $_POST["quantity"],
@@ -41,7 +44,7 @@
             }
         }else{
             $item_array = array(
-                'product_id' => $_GET["product.id"],
+                'product_id' => $_GET["product_id"],
                 'item_name' => $_POST["name"],
                 'product_price' => $_POST["price"],
                 'item_quantity' => $_POST["quantity"],
@@ -109,6 +112,7 @@
   <input type="text" name="quantity" class="form-control" value="1">
   <input type="hidden" name="name" value="<?php echo $data["name"]; ?>"><br>
   <input type="hidden" name="price" value="<?php echo $data["price"]; ?>"><br>
+  <input type="hidden" name="id" value="<?php echo $data["product.id"]; ?>"><br>
   <input type="submit" name="add" style="margin-top: 5px;" class="btn btn-success"
                                        value="Add to Cart">
   </div>

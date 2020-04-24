@@ -1,4 +1,7 @@
 <?php
+       session_start();
+?>
+<?php
     include("../../dashboard/navbar5.php");
 ?>
 <!DOCTYPE html>

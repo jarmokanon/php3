@@ -1,4 +1,7 @@
 <?php
+       session_start();
+?>
+<?php
 include("../../dashboard/navbar5.php");
 require_once "../../config/config.php";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -7,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($stmt = $link->prepare($sql)) {
             $stmt->bind_param("ssi", $_POST['name'], $_POST['description'], $_POST['active']);
             if ($stmt->execute()) {
-                header("location: ../index.php");
+                echo "<script>window.location.href='../index.php'</script>";
                 exit();
             } else {
                 echo "Error! Please try again later.";

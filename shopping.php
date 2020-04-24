@@ -1,15 +1,18 @@
 <?php
+       session_start();
+?>
+<?php
     include("shop/nav.php");
-    $database_name = "webshop";
-    $con = mysqli_connect("localhost","root","",$database_name);
+    $database_name = "u532747_webshop";
+    $con = mysqli_connect("localhost","u532747_webshop","Wordpress1",$database_name);
  
     if (isset($_POST["add"])){
         if (isset($_SESSION["cart"])){
-            $item_array_id = array_column($_SESSION["cart"],"product.id");
-            if (!in_array($_GET["id"],$item_array_id)){
+            $item_array_id = array_column($_SESSION["cart"],"product_id");
+            if (!in_array($_GET["product_id"],$item_array_id)){
                 $count = count($_SESSION["cart"]);
                 $item_array = array(
-                    'product.id' => $_GET["product.id"],
+                    'product_id' => $_GET["product_id"],
                     'item_name' => $_POST["name"],
                     'product_price' => $_POST["price"],
                     'item_quantity' => $_POST["quantity"],
@@ -22,7 +25,7 @@
             }
         }else{
             $item_array = array(
-                'product.id' => $_GET["product.id"],
+                'product_id' => $_GET["product_id"],
                 'item_name' => $_POST["name"],
                 'product_price' => $_POST["price"],
                 'item_quantity' => $_POST["quantity"],
@@ -34,7 +37,7 @@
     if (isset($_GET["action"])){
         if ($_GET["action"] == "delete"){
             foreach ($_SESSION["cart"] as $keys => $value){
-                if ($value["product.id"] == $_GET["id"]){
+                if ($value["product_id"] == $_GET["product_id"]){
                     unset($_SESSION["cart"][$keys]);
                     echo '<script>alert("Product has been Removed...!")</script>';
                     echo '<script>window.location="shopping.php"</script>';
@@ -116,7 +119,7 @@
                             <td>$ <?php echo $data["product_price"]; ?></td>
                             <td>
                                 $ <?php echo number_format($data["item_quantity"] * $data["product_price"], 2); ?></td>
-                            <td><a href="shopping.php?action=delete&id=<?php echo $data["product.id"]; ?>"><span
+                            <td><a href="shopping.php?action=delete&product_id=<?php echo $data["product_id"]; ?>"><span
                                         class="text-danger">Remove Item</span></a></td>
  
                         </tr>
@@ -129,7 +132,8 @@
                             <th align="right">$ <?php echo number_format($total, 2); ?></th>
                             <td></td>
                         </tr>
-                        <?php echo '<button><a class="btn" href="order.php?$id='.$data['product_id'].'">Bekijk</a></button>'; ?>
+                        <?php echo "<button><a class='btn' href='order.php?product_id=".$data['product_id']."'>Bekijk</a></button>"; ?>
+                        <?php var_dump($data); ?> 
                         <?php
                     }
                 ?>

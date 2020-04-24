@@ -1,4 +1,7 @@
 <?php
+       session_start();
+?>
+<?php
 include("../../config/del.php");
 if( isset($_GET['del']) ) {
 	$id = $_GET['del'];
@@ -7,7 +10,7 @@ if( isset($_GET['del']) ) {
 	if($result) {
 	  echo 'Data deleted from database.';
 	  mysqli_free_result($result);
-	  header('Location:category_overview.php');
+	  echo "<script>window.location.href='category_overview.php'</script>";
 	}
    }
 ?>

@@ -8,7 +8,6 @@
 <body>
 <?php
 require('../config/db.php');
-session_start();
 // If form submitted, insert values into the database.
 if (isset($_POST['username'])){
         // removes backslashes
@@ -25,7 +24,7 @@ and password='".md5($password)."'";
         if($rows==1){
      $_SESSION['username'] = $username;
             // Redirect user to index.php
-     header("Location: index.php");
+       echo "<script>window.location.href='index.php'</script>";
          }else{
  echo "<div class='form'>
 <h3>Username/password is incorrect.</h3>

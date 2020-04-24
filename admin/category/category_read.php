@@ -1,3 +1,6 @@
+<?php
+       session_start();
+?>
 <?php 
 include("../../dashboard/navbar5.php");
 
@@ -14,7 +17,7 @@ include("../../dashboard/navbar5.php");
     }
      
     if ( null==$id ) {
-        header("Location: index.php");
+        echo "<script>window.location.href='../index.php'</script>";
     } else {
         $pdo = Database::connect();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

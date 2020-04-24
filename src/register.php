@@ -13,6 +13,16 @@ function setFormData(){
     }else{
         echo "Voornaam is verplicht";
     }
+    if(isset($_POST['field_lastname']) && $_POST['field_lastname'] != ''){
+        $lastname = dbp($_POST['field_lastname']);
+    }else{
+        echo "achternaam is verplicht";
+    }
+    if(isset($_POST['field_mail']) && $_POST['field_mail'] != ''){
+        $mail = dbp($_POST['field_mail']);
+    }else{
+        echo "mail is verplicht";
+    }
     if(isset($_POST['field_password']) && $_POST['field_password'] != ''){
         $password = dbp($_POST['field_password']);
         $password = md5($password);
@@ -21,17 +31,18 @@ function setFormData(){
     }
     
 
-    $query1 = $con->prepare('INSERT INTO admin (username, password) VALUES (?, ?);');
+    $query1 = $con->prepare('INSERT INTO user (firstname, lastname, mail, password) VALUES (?, ?, ?, ?);');
     if ($query1 === false) {
         echo mysqli_error($con)." - ";
         exit(__LINE__);
     }
-    $query1->bind_param('ss', $firstName,$password);
+    $query1->bind_param('ssss', $firstName,$lastname,$mail,$password);
     if ($query1->execute() === false) {
         echo mysqli_error($con)." - ";
         exit(__LINE__);
     } else {
         echo "Gebruiker toegevoegd";
+        echo "<script>window.location.href='../userlogin.php'</script>";
         $query1->close();
     }
 }

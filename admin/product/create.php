@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($stmt = $link->prepare($sql)) {
             $stmt->bind_param("ssiisii", $_POST['name'], $_POST['description'], $_POST['category_id'], $_POST['price'], $_POST['color'], $_POST['weight'], $_POST['active']);
             if ($stmt->execute()) {
-                header("location: products.php");
+                echo "<script>window.location.href='products.php'</script>";
                 exit();
             } else {
                 echo "Error! Please try again later.";

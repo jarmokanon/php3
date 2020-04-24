@@ -11,12 +11,12 @@
 
 <div class="topnav" id="myTopnav">
   <a href="index.php" class="active">Home</a>
-  <a href="products.php">product CRUD</a>
+  <a id="right" href="admin/login.php">ADMIN</a>
   <div id="right"><a href="#">
   <?php 
-  session_start(); // nodig om sessie te bewaren
-  if (isset($_SESSION['firstname'])) { // kijkt of sessie bestaat
-    echo "<a href='logout.php'> Welkom " . $_SESSION['firstname']; // als sessie bestaat, dan heet gebruiker welkom
+  // session_start(); // nodig om sessie te bewaren
+  if (isset($_SESSION['mail'])) { // kijkt of sessie bestaat
+    echo "<a href='logout.php'> Welkom " . $_SESSION['mail']; // als sessie bestaat, dan heet gebruiker welkom
   } else {
     echo "<a href='userlogin.php'>Log in</a>"; // als sessie niet bestaat, dan toon login link
   }

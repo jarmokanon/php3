@@ -7,7 +7,7 @@ if( isset($_GET['del']) ) {
 	if($result) {
 	  echo 'Data deleted from database.';
 	  mysqli_free_result($result);
-	  header('Location:../admin/product/products.php');
+	  echo "<script>window.location.href='../admin/product/products.php'</script>";
 	}
    }
 ?>

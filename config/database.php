@@ -1,10 +1,10 @@
 <?php
 class Database
 {
-    private static $dbName = 'webshop' ;
+    private static $dbName = 'u532747_webshop' ;
     private static $dbHost = 'localhost' ;
-    private static $dbUsername = 'root';
-    private static $dbUserPassword = '';
+    private static $dbUsername = 'u532747_webshop';
+    private static $dbUserPassword = 'Wordpress1';
      
     private static $cont  = null;
      

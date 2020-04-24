@@ -1,4 +1,7 @@
 <?php
+       session_start();
+?>
+<?php
      
     require 'shop/nav.php';
  
@@ -66,7 +69,7 @@
         if ($valid) {
             $pdo = Database::connect();
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = "INSERT INTO tbl_order (cutstomer_id,date,street,houseNumber,houseNumber_addon,zipCode,city,country,paid,delivery) values(?, ?, ?, ?,?,?,?)";
+            $sql = "INSERT INTO tbl_order (customer_id,date,street,houseNumber,houseNumber_addon,zipCode,city,country,paid,delivery) values(?, ?, ?, ?,?,?,?)";
             $q = $pdo->prepare($sql);
             $q->execute(array($customer_id,$date,$street,$houseNumber,$houseNumber_addon,$zipCode,$city,$country,$paid,$delivery));
             Database::disconnect();
@@ -77,16 +80,17 @@
 <?php
 session_start();
     $id = null;
-    if ( !empty($_GET['product.id'])) {
-        $id = $_REQUEST['product.id'];
-    }
-     
-    if ( null==$id ) {
-        header("Location: index.php");
-    } else {
+    if ( !empty($_GET['id'])) {
+      $id = $_REQUEST['id'];
+  }
+
+  if ( !isset($id)) {
+    echo $id;
+      // header("Location: index.php");
+  } else {
         $pdo = Database::connect();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "SELECT product.id, product.name, product.description, product.price, product.color, product.weight, category.name AS category, product_image.image FROM `product` INNER JOIN product_image ON product.id = product_image.product_id INNER JOIN category ON product.category_id = category.id WHERE product.id = $id GROUP BY product.id ";
+        $sql = "SELECT product.id AS product_id , product.name, product.description, product.price, product.color, product.weight, category.name AS category, product_image.image FROM `product` INNER JOIN product_image ON product.id = product_image.product_id INNER JOIN category ON product.category_id = category.id WHERE product.id = $id GROUP BY product.id ";
         $q = $pdo->prepare($sql);
         $q->execute(array($id));
         $data = $q->fetch(PDO::FETCH_ASSOC);
@@ -98,7 +102,7 @@ session_start();
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <link   href="css/order.css" rel="stylesheet">
+    <link   href="assets/css/style5.css" rel="stylesheet">
     <!-- <script src="js/bootstrap.min.js"></script> -->
 </head>
  

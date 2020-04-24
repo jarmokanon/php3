@@ -1,5 +1,5 @@
 <?php
-	require_once("../config/db.php");
+	require_once("../../config/db.php");
 	if (isset($_POST['submit'])) {		
 		$sql = $conn->prepare("UPDATE product SET name=? , description=? , category_id=? , price=? , color=? , weight=? , active=? WHERE id=?");
 		$name=$_POST['name'];

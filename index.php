@@ -1,5 +1,6 @@
 <?php
-    include("shop/nav.php")
+    session_start();
+    include("shop/nav.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
