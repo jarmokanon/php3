@@ -116,6 +116,7 @@
   <input type="submit" name="add" style="margin-top: 5px;" class="btn btn-success"
                                        value="Add to Cart">
   </div>
+  <?php var_dump($data); ?> 
   <?php
                 }
             

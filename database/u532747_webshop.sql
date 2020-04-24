@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.9.4
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Gegenereerd op: 02 apr 2020 om 20:03
--- Serverversie: 10.4.6-MariaDB
--- PHP-versie: 7.3.9
+-- Host: localhost
+-- Gegenereerd op: 24 apr 2020 om 19:05
+-- Serverversie: 5.5.14
+-- PHP-versie: 7.2.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `webshop`
+-- Database: `u532747_webshop`
 --
 
 -- --------------------------------------------------------
@@ -41,7 +41,8 @@ CREATE TABLE `admin` (
 INSERT INTO `admin` (`id`, `username`, `password`) VALUES
 (1, 'admin', '827ccb0eea8a706c4c34a16891f84e7b'),
 (10, 'jarmo123', 'cc03e747a6afbbcbf8be7668acfebee5'),
-(11, 'jarmokanon', '28591c581f830b8e6ad7a98fafc8a664');
+(11, 'jarmokanon', '28591c581f830b8e6ad7a98fafc8a664'),
+(12, 'ja', 'a78c5bf69b40d464b954ef76815c6fa0');
 
 -- --------------------------------------------------------
 
@@ -65,8 +66,7 @@ INSERT INTO `category` (`id`, `name`, `description`, `active`) VALUES
 (2, 'huishouden', 'Alles voor het huishouden.', 1),
 (3, 'geluid', 'De beste audio.', 1),
 (4, 'gaming', 'Games, consoles, etc.', 1),
-(5, 'verzorging', 'Alles voor een goed uiterlijk.', 1),
-(6, 'stofzuigers', 'alle wat je zoekt.', 1);
+(5, 'verzorging', 'Alles voor een goed uiterlijk.', 1);
 
 -- --------------------------------------------------------
 
@@ -97,7 +97,8 @@ CREATE TABLE `customer` (
 
 INSERT INTO `customer` (`id`, `gender`, `firstname`, `middlename`, `lastname`, `street`, `housenumber`, `housenumber_addon`, `zipcode`, `city`, `phone`, `e-mailadres`, `password`, `newsletter_subscription`) VALUES
 (1, 0, 'Jake', '', 'Posthouwer', 'Magnoliastraat', 6, '', '3531GS', 'Utrecht', '06 18585761', '533301@student.glu.nl', '8572aae71f38b186bebfd018f953464e', 1),
-(2, 1, 'jarmo', '-', 'kanon', 'julianaweg', 13, '-', '3433EA', 'nieuwegein', '0622079110', '532747@student.glu.nl', 'ja123', 1);
+(2, 1, 'jarmo', '-', 'kanon', 'julianaweg', 13, '-', '3433EA', 'nieuwegein', '0622079110', '532747@student.glu.nl', 'ja123', 1),
+(8, 1, 'luca', '', 'ciappa', 'utrechtseweg', 36, '', '1234AB', 'utrecht', '0634987765', 'luca@ciappa.nl', 'ff377aff39a9345a9cca803fb5c5c081', 1);
 
 -- --------------------------------------------------------
 
@@ -129,8 +130,7 @@ INSERT INTO `product` (`id`, `name`, `description`, `category_id`, `price`, `col
 (6, 'airpods 2', 'Deze AirPods 2019 zijn van de tweede generatie en zijn nog geavanceerder dan de eerste variant. De kenmerkende witte oordopjes van Apple kun je draadloos koppelen via Bluetooth aan je iPhone of iPad. Zo kun je urenlang muziek luisteren, gesprekken voeren of bijvoorbeeld de digitale assistent Siri gebruiken!\r\n\r\nEr is bij deze nieuwere variant gekozen voor een compleet nieuwe Apple H1-koptelefoonchip. Zo is geluid nog beter en worden verschillende sensoren gebruikt om te detecteren hoe je de dopjes draagt. Geluid wordt automatisch naar Ã©Ã©n of twee oortjes gestuurd, dat betekent altijd volop genieten.', 3, '140.00', 'white', 11, 1),
 (7, 'airpods pro', 'De AirPods Pro zijn bluetoothoordoppen met noise cancelling waarmee je je afsluit van omgevingsgeluiden. De oortjes worden geleverd in een draadloze oplaadcase. Wanneer je de AirPods in de case opbergt, worden ze direct opgeladen. Handig voor onderweg dus!\r\n\r\nTen opzichte van de vorige AirPods, is het design van de Pro iets anders. Dit zijn weer echte in-ear oordopjes, waarbij drie maten siliconen dopjes worden meegeleverd. Verder is de steel voorzien van een druksensor waarmee je verschillende acties kunt uitvoeren.', 3, '279.00', 'white', 11, 1),
 (8, 'playstation 4 pro 1tb', 'De PlayStation 4 Pro is er voor serieuze gamers die elke dag de beste graphics en prestaties verwachten. De Pro is namelijk 2x krachtiger dan een PS4 Slim. Hierdoor speel je games in 4K of kies je voor nog vloeiender beeld. Ook ziet het beeld er op de PSVR er een stuk beter uit. Heb je een luxe gaming headset of surround sound geluidssyteem, dan sluit je deze direct aan op de optische audio poort. Als een 4K tv nog op je verlanglijstje staat, dan zorgt de Pro ook bij 1080p tv\'s en monitoren voor vloeiender beeld met meer zichtbare details.\r\n\r\nLet op! De PS4 Pro is ongeveer 2 keer zo krachtig als een reguliere PS4. Zoveel rekenkracht wekt bij intensief gebruik warmte op. Het is dus verstandig om de PS4 Pro bij gebruik niet in een klein of afgesloten kastje te laten staan. Het model betreft CUH-7216B, het stillere model.', 4, '399.00', 'black', 3, 1),
-(9, 'Philips Series 5000 S5530/06 + Philips SH50/50', 'Productomschrijving\r\nMet de Philips Series 5000 S5530/06 + Philips SH50/50 scheer jij je de aankomende 4 jaar glad, zonder dat je nieuwe scheerringen hoeft te kopen. De scheerringen zijn na 2 jaar toe aan vervanging en bij dit scheerapparaat krijg je een set nieuwe scheerringen. Handig, want zo heb je genoeg voor 4 jaar scheer plezier. Om de zware baardgroei af te scheren beschikt dit scheerapparaat over een Turbo+ modus. In deze stand genereert het scheerapparaat 20 procent extra scheervermogen, zodat je zelfs de dikste baardharen moeiteloos afscheert. Met het meegeleverde precisietrimmer opzetstuk werk je ook je bakkebaarden netjes bij.', 5, '124.00', 'black / bl', 300, 1),
-(10, 'stofzuiger', 'steelstofzuiger geweldig!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', 6, '125.00', 'black', 500, 1);
+(9, 'Philips Series 5000 S5530/06 + Philips SH50/50', 'Productomschrijving\r\nMet de Philips Series 5000 S5530/06 + Philips SH50/50 scheer jij je de aankomende 4 jaar glad, zonder dat je nieuwe scheerringen hoeft te kopen. De scheerringen zijn na 2 jaar toe aan vervanging en bij dit scheerapparaat krijg je een set nieuwe scheerringen. Handig, want zo heb je genoeg voor 4 jaar scheer plezier. Om de zware baardgroei af te scheren beschikt dit scheerapparaat over een Turbo+ modus. In deze stand genereert het scheerapparaat 20 procent extra scheervermogen, zodat je zelfs de dikste baardharen moeiteloos afscheert. Met het meegeleverde precisietrimmer opzetstuk werk je ook je bakkebaarden netjes bij.', 5, '124.00', 'black / bl', 300, 1);
 
 -- --------------------------------------------------------
 
@@ -160,9 +160,7 @@ INSERT INTO `product_image` (`id`, `product_id`, `image`, `active`) VALUES
 (12, 8, 'img/ps4pro1.png', 1),
 (13, 9, 'img/scheer1.png', 1),
 (14, 0, 'img/telefoon.jpg', 1),
-(15, 10, 'img/telefoon.jpg', 1),
-(16, 10, 'img/telefoon.jpg', 1),
-(17, 11, 'img/concert2.jpg', 1);
+(15, 10, 'img/telefoon.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -189,7 +187,11 @@ CREATE TABLE `tbl_order` (
 --
 
 INSERT INTO `tbl_order` (`id`, `customer_id`, `date`, `street`, `houseNumber`, `houseNumber_addon`, `zipCode`, `city`, `country`, `paid`, `delivery`) VALUES
-(1, 2, '2020-03-30 20:08:00', 'ander afleveradres straatnaam', 123, 'bis', '1234AB', 'utrecht', 'nederland', 1, 'bezorgen_anders');
+(1, 2, '2020-03-30 20:08:00', 'ander afleveradres straatnaam', 123, 'bis', '1234AB', 'utrecht', 'nederland', 1, 'bezorgen_anders'),
+(2, 1, '2020-04-23 12:28:47', 'julianaweg ', 13, 'a', '4321AB', 'nieuwegein', 'nederland', 1, 'ophalen'),
+(3, 3, '2020-04-29 12:28:47', 'dorpsstraat', 10, 'c', '5678CD', 'utrecht', 'nederland', 0, 'bezorgen_anders'),
+(4, 1, '2020-04-23 12:28:47', 'julianaweg ', 13, 'a', '4321AB', 'nieuwegein', 'nederland', 1, 'ophalen'),
+(5, 3, '2020-04-29 12:28:47', 'dorpsstraat', 10, 'c', '5678CD', 'utrecht', 'nederland', 0, 'bezorgen_anders');
 
 -- --------------------------------------------------------
 
@@ -225,7 +227,7 @@ CREATE TABLE `user` (
   `middlename` varchar(10) NOT NULL,
   `lastname` varchar(20) NOT NULL,
   `birthdate` date NOT NULL,
-  `e-mailadres` varchar(30) NOT NULL,
+  `mail` varchar(30) NOT NULL,
   `password` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -233,10 +235,10 @@ CREATE TABLE `user` (
 -- Gegevens worden geëxporteerd voor tabel `user`
 --
 
-INSERT INTO `user` (`id`, `firstname`, `middlename`, `lastname`, `birthdate`, `e-mailadres`, `password`) VALUES
+INSERT INTO `user` (`id`, `firstname`, `middlename`, `lastname`, `birthdate`, `mail`, `password`) VALUES
 (1, 'jarmo', '', 'kanon', '2002-07-27', '532747@student.glu.nl', '7e28943a52aa7981d51c135432ab8937'),
-(2, 'jan', 'van', 'os', '1990-02-17', 'jos@glu.nl', '827ccb0eea8a706c4c34a16891f84e7b'),
-(4, 'jarmo', '', 'kanon', '2002-07-27', 'jarmokanon@hotmail.com', '1e0b051fbb8ed074c44ee4691fce347f');
+(4, 'jarmo', '', 'kanon', '2002-07-27', 'jarmokanon@hotmail.com', '1e0b051fbb8ed074c44ee4691fce347f'),
+(25, 'luca', '', 'ciappa', '0000-00-00', 'luca@ciappa.nl', 'ff377aff39a9345a9cca803fb5c5c081');
 
 --
 -- Indexen voor geëxporteerde tabellen
@@ -291,7 +293,7 @@ ALTER TABLE `tbl_order_detail`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `e-mailadres` (`e-mailadres`);
+  ADD UNIQUE KEY `e-mailadres` (`mail`);
 
 --
 -- AUTO_INCREMENT voor geëxporteerde tabellen
@@ -301,25 +303,25 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT voor een tabel `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT voor een tabel `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT voor een tabel `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT voor een tabel `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT voor een tabel `product_image`
@@ -331,7 +333,7 @@ ALTER TABLE `product_image`
 -- AUTO_INCREMENT voor een tabel `tbl_order`
 --
 ALTER TABLE `tbl_order`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT voor een tabel `tbl_order_detail`
@@ -343,7 +345,7 @@ ALTER TABLE `tbl_order_detail`
 -- AUTO_INCREMENT voor een tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -87,12 +87,11 @@
             if(mysqli_num_rows($result) > 0) {
  
                 while ($data = mysqli_fetch_array($result)) {
- 
                     ?>
                     <div class="col-md-3">
  
-                        <form method="post" action="shopping.php?action=add&id=<?php echo $data["product_id"]; ?>">
- 
+                    <?php echo "<form method='post' action='shopping.php?action=add&id=" . $data["product_id"]."'>";?>
+                     
                             <div class="card">
                                 <?php echo "<img class='img-responsive' src='admin/product/".$data['image']."' >";?>
                                 <h5 class="text-info"><?php echo $data["name"]; ?></h5>
@@ -109,6 +108,7 @@
                         </form>
                     </div>
                     <?php
+                   
                 }
             }
         ?>

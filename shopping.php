@@ -9,10 +9,10 @@
     if (isset($_POST["add"])){
         if (isset($_SESSION["cart"])){
             $item_array_id = array_column($_SESSION["cart"],"product_id");
-            if (!in_array($_GET["product_id"],$item_array_id)){
+            if (!in_array($_GET["id"],$item_array_id)){
                 $count = count($_SESSION["cart"]);
                 $item_array = array(
-                    'product_id' => $_GET["product_id"],
+                    'product_id' => $_GET["id"],
                     'item_name' => $_POST["name"],
                     'product_price' => $_POST["price"],
                     'item_quantity' => $_POST["quantity"],
@@ -25,7 +25,7 @@
             }
         }else{
             $item_array = array(
-                'product_id' => $_GET["product_id"],
+                'product_id' => $_GET["id"],
                 'item_name' => $_POST["name"],
                 'product_price' => $_POST["price"],
                 'item_quantity' => $_POST["quantity"],
@@ -37,7 +37,7 @@
     if (isset($_GET["action"])){
         if ($_GET["action"] == "delete"){
             foreach ($_SESSION["cart"] as $keys => $value){
-                if ($value["product_id"] == $_GET["product_id"]){
+                if ($value["product_id"] == $_GET["id"]){
                     unset($_SESSION["cart"][$keys]);
                     echo '<script>alert("Product has been Removed...!")</script>';
                     echo '<script>window.location="shopping.php"</script>';
